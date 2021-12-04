@@ -1,14 +1,189 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>Simple Map</title>
+
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./index.js"></script>
+
+
+    
+
   </head>
+  
+
   <body>
+    
+    
+   
+    <h1 id="i1">JOIN MIDWAY</h1> 
+    
+    
+    
+    <div class="sredina">
+    <button id="button" onclick="PrikaziPrijavo()" class="button">Prijavi svojo pot!</button>
+    <form id="Prijava" style="display: none;">
+      <button id="button2" class="button">NAZAJ</button><br>
+      
+      <table class="center" style="text-align:center;">
+        <tr>
+          <td>
+            <label for="fname">Ime in priimek:</label>
+            </td>
+            <td>
+            <input type="text" id="fname" name="fname">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="car">Znamka avtomobila:</label>
+          </td>
+          <td>
+            <input type="text" id="car" name="car">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="carC">Barva avtomobila:</label>
+          </td>
+          <td>
+            <input type="text" id="carC" name="carC">
+          </td>
+        </tr>
+        <tr>
+          <td>
+          <label for="lokX">Trenutna lokacija:</label>
+        </td>
+        <td>
+          <button id="lok" type='button' text-align='center' onclick="getLocation()">Pridobi svojo lokacijo</button>
+    <p id="demo"></p>
+    <script>
+var ar = [];
+
+
+
+      var x = document.getElementById("demo");
+      
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+      
+      
+      function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude + 
+        ", Longitude: " + position.coords.longitude;
+        const string1 = x.innerHTML;
+        string2=string1.replace('Latitude: ', '');
+        string3=string2.replace(' Longitude: ', '');
+        var koordinate = string3.split(",");
+        
+        document.getElementById("lok").style.display = "none";
+
+        ar.push(koordinate);
+        
+      }
+
+     
+    </script>
+        </td>
+       
+        
+        </tr>
+        <tr>
+          <td>
+            <label>Vpisite destinacijo:</label>
+          </td>
+<td>
+  <textarea id="txtAddress" rows="3" cols="25"></textarea>
+  <br />
+  <input id="gumb" type="button" onclick="GetLocation()" value="Get Location" />
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <p id="izpis"></p>
+  <script type="text/javascript">
+  
+ 
+      function GetLocation() {
+          var geocoder = new google.maps.Geocoder();
+          var address = document.getElementById("txtAddress").value;
+          
+          geocoder.geocode({ 'address': address }, function (results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                  var latitude = results[0].geometry.location.lat();
+                  var longitude = results[0].geometry.location.lng();
+                  
+                  document.getElementById("txtAddress").style.display = "none";
+                  document.getElementById("gumb").style.display = "none";
+                  alert("Latitude: " + latitude + "\nLongitude: " + longitude);
+
+                 
+                  document.getElementById("izpis").innerHTML="Latitude: "+latitude+", Longitude: "+longitude;
+                  
+                  ar.push(latitude);
+                  ar.push(longitude);
+                 
+              } else {
+                  
+              }
+          });
+      };   
+  </script>
+</td>
+        </tr>
+    </table>
+      <input id="crta" type="button" onclick="narisi_pot()" value="OK">
+
+
+      <script type="text/javascript">
+        
+
+        
+        function narisi_pot(){
+          
+var a =ar[0];
+
+
+
+        const flightPlanCoordinates = [
+
+        { lat: 46.0504297, lng: 14.4692413 },
+    { lat: ar[1], lng: ar[2] },
+  ];
+  const flightPath = new google.maps.Polyline({
+    path: flightPlanCoordinates,
+    geodesic: true,
+    strokeColor: "#FF0000",
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+  });
+
+  flightPath.setMap(map);
+}
+      </script>
+  </form>
+  </div>
+  
+  
+  
     <div id="map"></div>
+    <script type="text/javascript">
+      function PrikaziPrijavo() {
+          document.getElementById('Prijava').style.display = 'block';
+          document.getElementById("i1").style.display = "none";
+          document.getElementById("button").style.display = "none";
+      }
+  </script>
+
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu01p6HUScvtSVttrouq7hjDTShktANS4&callback=initMap&v=weekly"
       async

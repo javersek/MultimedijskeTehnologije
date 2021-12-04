@@ -1,12 +1,69 @@
+table.center {
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+table, tr, td {
+  border: 1px solid black;
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+
+
+h1 {
+  font-family: Georgia, sans-serif;
+  font-size: 3em;
+  letter-spacing: -2px;
+  text-align: center;
+}
+
+
+
+.sredina {
+  text-align: center;
+}
+
+.button{
+  background-color: #1e13be;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 
 #map {
-  height: 100%;
-}
-     
-html,
-body{
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-      
+  height: 700px;
+	width: 100%;
+  }
+
+       
+  html,
+  body{
+    background-color: powderblue;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .loginOkno{
+    margin: auto;
+    margin-top: 20px;
+    padding: 10px;
+    border: 2px solid grey;
+    border-radius: 10px;
+      font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .btn{
+    background-color: #296E85;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+        
