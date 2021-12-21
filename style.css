@@ -1,69 +1,68 @@
-table.center {
-  margin-left:auto; 
-  margin-right:auto;
+
+html,
+body{
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #bbbbbb;
 }
 
-table, tr, td {
-  border: 1px solid black;
-  margin-left:auto; 
-  margin-right:auto;
+th, td, table {
+	background-color: white;
+	color: black;
+}
+
+.loginOkno{
+	margin: auto;
+	background-color: whitesmoke;
+	margin-top: 20px;
+	padding: 10px;
+	border: 2px solid whitesmoke;
+	border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn{
+	background-color: #53B3D4;
+	color: white;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+#map{
+	border: 5px solid #212529;
+	border-radius: 5px;
+	height: 700px;
+	width: 80%;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right:auto;
+	margin-bottom: 50px;
 }
 
 
 
-h1 {
-  font-family: Georgia, sans-serif;
-  font-size: 3em;
-  letter-spacing: -2px;
-  text-align: center;
+
+
+.btn{
+	background-color: #212529;
+}
+
+.btn:hover{
+	color: lightgrey;
+}
+
+.okoliTabele{
+	width: 80%;
+	border: 5px solid #212529;
+	border-radius: 5px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
 }
 
 
-
-.sredina {
-  text-align: center;
+.navbar{
+	padding-left: 20px;
 }
-
-.button{
-  background-color: #1e13be;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-#map {
-  height: 700px;
-	width: 100%;
-  }
-
-       
-  html,
-  body{
-    background-color: powderblue;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  .loginOkno{
-    margin: auto;
-    margin-top: 20px;
-    padding: 10px;
-    border: 2px solid grey;
-    border-radius: 10px;
-      font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  .btn{
-    background-color: #296E85;
-    color: white;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-        

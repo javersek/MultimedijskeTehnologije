@@ -1,4 +1,4 @@
-let map;
+/*let map;
 
 var markers = [];
 
@@ -7,13 +7,7 @@ function initMap(markers) {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 46.060976362379066, lng: 14.510848589269866 },
     zoom: 13,
-    mapTypeId: "terrain",
-    
   });
-  
-
-
-  
 
   const styles = {
     hide: [
@@ -32,6 +26,118 @@ function initMap(markers) {
 
   map.setOptions({styles: styles["hide"]});
 }
+
+
+var marker;
+  const url="https://api.ontime.si/api/v1/bicikelj/?format=json";
+
+  async function getapi(url){
+    const response = await fetch(url);
+    var data = await response.json();
+    for(let i = 0; i<data["results"].length; i++){
+      const pozicija = {lat: data["results"][i]["lat"], lng: data["results"][i]["lng"]};
+
+      marker = new google.maps.Marker({
+        position: pozicija,
+        map: map,
+      });
+
+      marker.metadata = {id: i};
+
+      markers[i]=marker;
+      
+
+      var infowindow = new google.maps.InfoWindow()
+
+
+      google.maps.event.addListener(marker,'click', (function(marker,infowindow){
+        return function(){
+
+
+
+          function ajax(){
+            $.ajax({
+              url: 'https://api.ontime.si/api/v1/bicikelj/?format=json',
+              type: "GET",
+              success: function(data){
+                console.log(data["results"][marker.metadata.id]["available_bikes"]);
+                var content = data["results"][i]["location_name"] + "<br><a>Available bikes: " + data["results"][i]["available_bikes"] + "</a>"
+                                                        + "<br><a>Available stands: " + data["results"][i]["available_stands"] + "</a>";
+
+                infowindow.setContent(content);
+              },
+              error: function (error) {
+                console.log(`Error ${error}`);
+              }
+            })
+            
+          }
+
+          var content = data["results"][i]["location_name"] + "<br><a>Available bikes: " + data["results"][i]["available_bikes"] + "</a>"
+                                                        + "<br><a>Available stands: " + data["results"][i]["available_stands"] + "</a>";
+          infowindow.setContent(content);
+
+          infowindow.open(map,marker);
+
+          setInterval(ajax, 10000);
+
+        };
+      })(marker,infowindow));
+
+    }
+  }
+  getapi(url);*/
+
+
+
+let map;
+
+
+
+
+
+var markers = [];
+
+function initMap(markers) {
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  markers=[]
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 46.060976362379066, lng: 14.510848589269866 },
+    zoom: 13,
+  });
+
+  const styles = {
+    hide: [
+      {
+        featureType: "poi",
+        stylers: [{ visibility: "off" }],
+      },
+      {
+        featureType: "administrative",
+        elementType: "labels",
+        stylers: [{ visibility: "off" }],
+      },
+    ],
+  };
+
+
+  map.setOptions({styles: styles["hide"]});
+
+  directionsRenderer.setMap(map);
+
+  const onChangeHandler = function () {
+    calculateAndDisplayRoute(directionsService, directionsRenderer);
+  };
+
+  document.getElementById("risi").addEventListener("change", onChangeHandler);
+
+}
+
+
+
+
+
 
 var market2;
 const url2='https://api.ontime.si/api/v1/avant2go/?format=json';
@@ -157,13 +263,6 @@ var marker;
 
     }
   }
-
-
-  
-
-
   getapi(url);
   getapi2(url2);
 
-  
-  
