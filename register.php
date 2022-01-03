@@ -28,7 +28,7 @@
 			<input type="password" name="password_2">
 			<br>
 
-			<button type="submit" class="btn" name="reg_user">Register</button>
+			<button type="submit" style="margin-top: 5px;" class="btn" name="reg_user">Register</button>
 
 			<p>
 				Already a member? <a href="login.php">Sign in</a>

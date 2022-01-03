@@ -107,6 +107,9 @@ function initMap(markers) {
     zoom: 13,
   });
 
+  document.getElementById("hide-markers").addEventListener("click", hideMarkers);
+  document.getElementById("show-markers").addEventListener("click", showMarkers);
+
   const styles = {
     hide: [
       {
@@ -134,22 +137,21 @@ function initMap(markers) {
 
 }
 
+/*google.maps.event.addEventListener(map, 'click', function() {
+  marker.setVisible(false);
+});*/
 
 
-
-
-
-var market2;
 const url2='https://api.ontime.si/api/v1/avant2go/?format=json';
 
 var marker;
   const url="https://api.ontime.si/api/v1/bicikelj/?format=json";
 
 
-  async function getapi2(url2){
+  async function getapi2(url2, markers){
     const response = await fetch(url2);
     var data = await response.json();
-    for(let i = 0; i<data["results"].length; i++){
+    for(let i = markers.length; i<data["results"].length+markers.length; i++){
       const pozicija = {lat: data["results"][i]["lat"], lng: data["results"][i]["lng"]};
 
       marker = new google.maps.Marker({
@@ -207,8 +209,7 @@ var marker;
 
 
 
-
-  async function getapi(url){
+  async function getapi(url, markers){
     const response = await fetch(url);
     var data = await response.json();
     for(let i = 0; i<data["results"].length; i++){
@@ -263,6 +264,29 @@ var marker;
 
     }
   }
-  getapi(url);
-  getapi2(url2);
+
+
+
+  function setMapOnAll(map) {
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+    }
+  }
+  
+  function hideMarkers() {
+    setMapOnAll(null);
+  }
+  
+  function showMarkers() {
+    setMapOnAll(map);
+  }
+
+
+
+
+getapi(url, markers);
+getapi2(url2, markers);
+
+
+
 

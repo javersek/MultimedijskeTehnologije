@@ -21,8 +21,9 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="./style.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		
+		<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 		<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 		<script src="./index.js"></script>
   	</head>
@@ -43,6 +44,13 @@
 	</nav>
 
 
+	<div id="floating-panel" class="col-4">
+      <input id="hide-markers" class="btn" type="button" value="Hide Markers" />
+	  <input id="show-markers" class="btn" type="button" value="Show Markers" />
+    </div>
+
+
+	<div id="map"></div>
 
 	<script>
   		var a=[];
@@ -149,7 +157,7 @@
 	<div class="okoliTabele" style="overflow-x: auto;">
 	
 
-  		<table class="table sortable">
+  		<div class="table">
 	  	<!--div id="meni" class="dropdown">
 			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Vožnje
@@ -224,21 +232,21 @@
 				$stmt = $conn->prepare($sql);
 				$stmt->execute();
 
-				echo "<tr>
+				echo "<div class='row'>
 				
-						<th>Znamka</th>
-						<th>Iz lokacije</th>
-						<th>Na lokacijo</th>
-						<th>Prosta mesta</th>
-						<th>Čas</th>
-						<th>Rezervacija</th>
-						<th>Risanje poti</th>
+						<div class='cell intr'><i class='fa fa-car'></i>Znamka</div>
+						<div class='cell intr'><i class='fas fa-map-signs'></i>Iz lokacije</div>
+						<div class='cell intr'><i class='fas fa-location-arrow'></i>Na lokacijo</div>
+						<div class='cell intr'><i class='fas fa-chair'></i>Prosta mesta</div>
+						<div class='cell intr'><i class='fa fa-clock-o'></i>Čas odhoda</div>
+						<div class='cell intr'><i class='fas fa-check'></i>Rezervacija</div>
+						<div class='cell intr'><i class='fas fa-edit'></i>Risanje poti</div>
 					  
-					  </tr>";
+					  </div>";
 
 				$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 				foreach($stmt->fetchAll() as $k=>$v) {
-					echo "<tr>";
+					echo "<div class='row'>";
 					$pot = "";
 
 					$vv = implode(";",$v);
@@ -252,21 +260,21 @@
 					$cas=$vv[5];
 					$uporabnik_uporabnikid=$vv[6];
 					
-					$pot = "<td>".$znamka."</td><td>".$iz."</td><td>".$kam."</td><td>".$prostor."</td><td>".$cas."</td>";
+					$pot = "<div class='cell'><i class='fa fa-car'></i>".$znamka."</div><div class='cell'><i class='fas fa-map-signs'></i>".$iz."</div><div class='cell'><i class='fas fa-location-arrow'></i>".$kam."</div><div class='cell'><i class='fas fa-chair'></i>".$prostor."</div><div class='cell'><i class='fa fa-clock-o'></i>".$cas."</div>";
 
 
 
-					$pot = $pot.'<td><form method="post">
+					$pot = $pot.'<div class="cell"><form method="post">
 
 							<input type="hidden" name="idbrisanje" value="'.$idbrisanje.'"></input>	
 							<input type="hidden" name="prostorbrisanje" value="'.$prostor.'"></input>
 							<input class="btn" type="submit" value="Rezerviraj prostor"></input>
-							</form></td>';
+							</form></div>';
 
 
-					$pot = $pot.'<td>
+					$pot = $pot.'<div class="cell">
 								<button type="button" class="btn" id="risi" onclick="narisi(\''.$iz.'\',\''.$kam.'\')">Nariši pot</button>  
-							</td>';
+							</div>';
 
 					echo $pot;
 
@@ -286,7 +294,7 @@
 
 					$bid=$bb[0];*/
 
-					echo "</tr>";
+					echo "</div>";
 
 					
 
@@ -302,8 +310,8 @@
 
 
 			
+		</div>
 
-		</table>
 			<!--/div>
 	  
 		</div-->
@@ -313,20 +321,6 @@
 
 
 
-
-	
-
-
-
-
-
-
-
-
-
-		
-
-		<div id="map"></div>
 		
 		
 		<script
@@ -334,7 +328,7 @@
 			async
 		></script>
 
-		<footer style="background-color: darkgray; text-align:center">Simon Javeršek, Žan Koren Kern</footer>
+	
 		
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	  	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

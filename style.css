@@ -1,61 +1,71 @@
-
-html,
-body{
+html,body{
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background-color: #bbbbbb;
+	background-color: #f0f0f0;
 }
-
-th, td, table {
-	background-color: white;
-	color: black;
-}
-
 .loginOkno{
-	margin: auto;
 	background-color: whitesmoke;
 	margin-top: 20px;
 	padding: 10px;
 	border: 2px solid whitesmoke;
 	border-radius: 10px;
-    font-family: Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: auto;
+	
+	
 }
 
-.btn{
-	background-color: #53B3D4;
-	color: white;
-	font-weight: bold;
-	margin-top: 10px;
+
+#floating-panel{
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
 }
+
 
 #map{
-	border: 5px solid #212529;
+	border: 2px solid #07011A;
 	border-radius: 5px;
 	height: 700px;
 	width: 80%;
-	margin-top: 50px;
+	margin-top: 10px;
 	margin-left: auto;
 	margin-right:auto;
 	margin-bottom: 50px;
 }
 
 
+.nav-item{
+	font-size: 14pt;
 
+}
 
 
 .btn{
-	background-color: #212529;
+	color: white;
+	font-weight: bold;
+	background-color: #235DF5;
+	
 }
 
+
 .btn:hover{
-	color: lightgrey;
+	background-color: #DA1458;
+	color: white;
 }
+
+form{
+	padding-left: 0!important;
+}
+
 
 .okoliTabele{
 	width: 80%;
-	border: 5px solid #212529;
-	border-radius: 5px;
+	
 	margin-top: 50px;
 	margin-left: auto;
 	margin-right: auto;
@@ -66,3 +76,69 @@ th, td, table {
 .navbar{
 	padding-left: 20px;
 }
+
+.bg-dark{
+	background-color: #235DF5!important;
+}
+
+.navbar-brand{
+	font-weight: bolder;
+	font-size: 36pt;
+}
+
+#risi{
+	background-color: #235DF5;
+	margin-bottom: 5px;
+}
+#risi:hover{
+	background-color: #DA1458;
+	color: white;
+}
+
+.intr{
+	
+	font-weight: bold;
+	color: #DA1458;
+}
+
+.cell{
+	font-weight: bold;
+	font-size: 14pt;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+	width: 100%;
+
+  }
+
+  
+  @media only screen and (min-width: 1150px) {
+	/* For desktop: */
+	.col-1 {width: 8.33%;}
+	.col-1_5 {width: 12.5%;}
+	.col-2 {width: 16.66%;}
+	.col-3 {width: 25%;}
+	.col-4 {width: 33.33%;}
+	.col-5 {width: 41.66%;}
+	.col-6 {width: 50%;}
+	.col-7 {width: 58.33%;}
+	.col-8 {width: 66.66%;}
+	.col-9 {width: 75%;}
+	.col-10 {width: 83.33%;}
+	.col-11 {width: 91.66%;}
+	.col-12 {width: 100%;}
+
+
+	.table {display:table!important;}
+	.row { display:table-row!important;}
+	.cell {display:table-cell!important;}
+
+	.row>* {
+
+		width: auto;
+
+	}
+
+
+  }
