@@ -21,7 +21,9 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="./style.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu01p6HUScvtSVttrouq7hjDTShktANS4&sensor=false&libraries=places"
+		></script>
 		<script src="./index.js"></script>
   	</head>
   	<body>
@@ -34,7 +36,9 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
 			<a class="nav-item nav-link" href="index.php">Domov</a>
-			<a class="nav-item nav-link active" href="#">Dodaj prevoz</a>
+			<a class="nav-item nav-link active" href="prevoz.php">Dodaj prevoz</a>
+			<a class="nav-item nav-link" href="rezervacije.php">Rezervacije</a>
+			<a class="nav-item nav-link" href="mojiprevozi.php">Moji prevozi</a>
 			<a class="nav-item nav-link" href="index.php?logout='1'" style="color:red">Logout</a>
 			</div>
 		</div>
@@ -96,6 +100,8 @@
 
 			?>
 
+		
+
 			<form method="post">
 				<input type="hidden" name="ime" value="<?php echo $_SESSION['username']; ?>"><br>
 				<label>Znamka:</label><br>
@@ -105,15 +111,45 @@
 				<label>Prostor:</label><br>
 				<input type="number" min="1" name="prostor" required><br>
 				<label>Iz:</label><br>
-				<input type="text" name="iz" required><br>
+				<input type="text" name="iz" id="iz" required><br>
 				<label>V:</label><br>
-				<input type="text" name="v" required><br>
+				<input type="text" name="v" id="v" required><br>
 				<label>Čas:</label><br>
 				<input type="datetime-local" name="cas" required><br>
 				<br>
 				<input type="submit" value="Dodaj">
 			</form> 
+
+
+
+			<script>
+				function initialize() {
+					var input = document.getElementById('iz');
+					const options = {
+						componentRestrictions: {country: "si"},
+					}
+					new google.maps.places.Autocomplete(input, options);
+				}
+
+				google.maps.event.addDomListener(window, 'load', initialize);
+
+
+				function initialize2() {
+					var input = document.getElementById('v');
+					const options = {
+						componentRestrictions: {country: "si"},
+					}
+					new google.maps.places.Autocomplete(input, options);
+				}
+
+				google.maps.event.addDomListener(window, 'load', initialize2);
+			</script>
+
+
+
+
 		</div>
+
 
 	 	
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

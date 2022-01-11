@@ -36,124 +36,15 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
-			<a class="nav-item nav-link active" href="index.php">Domov</a>
+			<a class="nav-item nav-link" href="index.php">Domov</a>
 			<a class="nav-item nav-link" href="prevoz.php">Dodaj prevoz</a>
-			<a class="nav-item nav-link" href="rezervacije.php">Rezervacije</a>
+			<a class="nav-item nav-link active" href="rezervacije.php">Rezervacije</a>
 			<a class="nav-item nav-link" href="mojiprevozi.php">Moji prevozi</a>
 			<a class="nav-item nav-link" href="index.php?logout='1'" style="color:red">Logout</a>
 			</div>
 		</div>
 	</nav>
 
-
-	<div id="floating-panel" class="col-4">
-      <input id="hide-markers" class="btn" type="button" value="Hide Markers" />
-	  <input id="show-markers" class="btn" type="button" value="Show Markers" />
-    </div>
-
-
-	<div id="map"></div>
-
-	<script>
-  		var a=[];
-		var b=[];
-		var ali=false;
-
-  		function shraniIz(lat, long){
-			a=[];
-			a.push(lat);
-			a.push(long);
-			ali=true;
-		}
-
-		function shraniKam(lat, long){
-			b=[]
-			b.push(lat);
-			b.push(long);
-			if(ali){
-				pot(a,b);
-			}
-		}
-
-
-		function narisi(iz, kam){
-
-			let izLat;
-			let izLong;
-			let kamLat;
-			let kamLong;
-
-			var geocoder = new google.maps.Geocoder();
-        	geocoder.geocode({ 'address': iz, 'region': 'si' }, function (results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					izLat = results[0].geometry.location.lat();
-					izLong = results[0].geometry.location.lng();
-					
-				} else {
-
-				}
-				shraniIz(izLat, izLong);
-				
-
-        	});
-
-			geocoder.geocode({ 'address': kam }, function (results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					kamLat = results[0].geometry.location.lat();
-					kamLong = results[0].geometry.location.lng();
-					
-				} else {
-
-				}
-				shraniKam(kamLat, kamLong);
-        	})
-
-			/*const directionsService = new google.maps.DirectionsService();
-  			const directionsRenderer = new google.maps.DirectionsRenderer();
-
-			directionsService.route({
-			origin: {
-				query: iz,
-			},
-			destination: {
-				query: kam,
-			},
-			travelMode: google.maps.TravelMode.DRIVING,
-			})
-			.then((response) => {
-			directionsRenderer.setDirections(response);
-			})
-			.catch((e) => window.alert("Directions request failed due to " + status));*/
-
-		}
-
-
-
-
-		function pot(a,b){
-			//console.log(a);
-			//console.log(b);
-
-		
-			const flightPlanCoordinates = [
-				{ lat: a[0], lng: a[1] },
-				{ lat: b[0], lng: b[1] },
-			];
-
-			const flightPath = new google.maps.Polyline({
-				path: flightPlanCoordinates,
-				geodesic: true,
-				strokeColor: "#FF0000",
-				strokeOpacity: 1.0,
-				strokeWeight: 2,
-			});
-
-			flightPath.setMap(map);
-		}
-
-
-
-	</script>
 
 
 	<div class="okoliTabele" style="overflow-x: auto;">
@@ -173,49 +64,21 @@
 				$username = "root";
 				$password = "";
 
-				try {
+
+
+
+
+                try {
 					$conn = new PDO("mysql:host=$servername;dbname=mydb", $username, $password);
 					// set the PDO error mode to exception
 					$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
-					if(isset($_POST['prostorbrisanje'], $_POST['idbrisanje'])){
-						
-						$prostorbrisanje=$_POST['prostorbrisanje'];
-
-						$idbrisanje=(int)$_POST['idbrisanje'];
-
-
-						
-						
-							
-						
-						if($prostorbrisanje==1){
-							$sql="DELETE FROM prevozi WHERE idprevozi=$idbrisanje";
-							$conn->exec($sql);
-						} 
-
-						if($prostorbrisanje>1){
-							$prostorbrisanje=$prostorbrisanje-1;
-							$sql="UPDATE `prevozi` SET `prostor` = $prostorbrisanje WHERE `idprevozi` = $idbrisanje";
-							$stmt = $conn->prepare($sql);
-							$stmt->execute();
-						}
-
-
-					}
-
-					/*if(isset($_POST['iz'], $_POST['kam'])){
-						$risanjeIz=$_POST['iz'];
-						$risanjeKam=$_POST['kam'];
-						echo "<script>
-							function narisi(risanjeIz, risanjeKam){
-								console.log('delaaaaaaaaaaaaa');
-							}
-							narisi('$risanjeIz', '$risanjeKam');
-
-						</script>";
-					}*/
+                    $ime=$_SESSION['username'];
+                    $sql = "SELECT uporabnikid FROM uporabnik WHERE username='$ime'";
+                    $stmt = $conn->prepare($sql);
+				    $stmt->execute();
+                    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    $uporabnikIzpis=$result;
 
 					
 				} catch(PDOException $e) {
@@ -223,13 +86,19 @@
 				}
 
 
+
+
+
+
+				
+
 				try {
 				$conn = new PDO("mysql:host=$servername;dbname=mydb", $username, $password);
 				// set the PDO error mode to exception
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-				$sql = "SELECT idprevozi, znamka, iz, v, prostor, cas, uporabnik_uporabnikid FROM prevozi WHERE prostor>0";
+				$sql = "SELECT idrezervacije, znamka, barva, iz, v, cas, uporabnik_uporabnikid FROM rezervacije WHERE uporabnik_uporabnikid=$uporabnikIzpis";
 
 				$stmt = $conn->prepare($sql);
 				$stmt->execute();
@@ -237,32 +106,15 @@
 				echo "<div class='row'>
 				
 						<div class='cell intr'><i class='fa fa-car'></i>Znamka</div>
+                        <div class='cell intr'><i class='fas fa-tint'></i>Barva</div>
 						<div class='cell intr'><i class='fas fa-map-signs'></i>Iz lokacije</div>
 						<div class='cell intr'><i class='fas fa-location-arrow'></i>Na lokacijo</div>
-						<div class='cell intr'><i class='fas fa-chair'></i>Prosta mesta</div>
 						<div class='cell intr'><i class='fa fa-clock-o'></i>Čas odhoda</div>
-						<div class='cell intr'><i class='fas fa-check'></i>Rezervacija</div>
-						<div class='cell intr'><i class='fas fa-edit'></i>Risanje poti</div>
 					  
 					  </div>";
 
 				$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-
-				$result = $stmt->fetchAll();
-				//print_r($result[0]["cas"]);
-
-
-				function date_compare($el1, $el2){
-					$el1=strtotime($el1["cas"]);
-					$el2=strtotime($el2["cas"]);
-					return $el1 - $el2;
-				}
-				usort($result, 'date_compare');
-
-
-
-				foreach($result as $k=>$v) {
+				foreach($stmt->fetchAll() as $k=>$v) {
 					echo "<div class='row'>";
 					$pot = "";
 
@@ -271,17 +123,17 @@
 
 					$idbrisanje=$vv[0];
 					$znamka=$vv[1];
-					$iz=$vv[2];
-					$kam=$vv[3];
-					$prostor=$vv[4];
+                    $barva=$vv[2];
+					$iz=$vv[3];
+					$kam=$vv[4];
 					$cas=$vv[5];
 					$uporabnik_uporabnikid=$vv[6];
 					
-					$pot = "<div class='cell'><i class='fa fa-car'></i>".$znamka."</div><div class='cell'><i class='fas fa-map-signs'></i>".$iz."</div><div class='cell'><i class='fas fa-location-arrow'></i>".$kam."</div><div class='cell'><i class='fas fa-chair'></i>".$prostor."</div><div class='cell'><i class='fa fa-clock-o'></i>".$cas."</div>";
+					$pot = "<div class='cell'><i class='fa fa-car'></i>".$znamka."</div><div class='cell'><i class='fas fa-tint'></i>".$barva."</div><div class='cell'><i class='fas fa-map-signs'></i>".$iz."</div><div class='cell'><i class='fas fa-location-arrow'></i>".$kam."</div><div class='cell'><i class='fa fa-clock-o'></i>".$cas."</div>";
 
 
 
-					$pot = $pot.'<div class="cell"><form method="post">
+					/*$pot = $pot.'<div class="cell"><form method="post">
 
 							<input type="hidden" name="idbrisanje" value="'.$idbrisanje.'"></input>	
 							<input type="hidden" name="prostorbrisanje" value="'.$prostor.'"></input>
@@ -291,7 +143,7 @@
 
 					$pot = $pot.'<div class="cell">
 								<button type="button" class="btn" id="risi" onclick="narisi(\''.$iz.'\',\''.$kam.'\')">Nariši pot</button>  
-							</div></div>';
+							</div>';*/
 
 					echo $pot;
 
@@ -310,6 +162,8 @@
 						}
 
 					$bid=$bb[0];*/
+
+					echo "</div>";
 
 					
 
@@ -332,16 +186,6 @@
 		</div-->
 		
 	</div>
-
-
-
-
-		
-		
-		<script
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu01p6HUScvtSVttrouq7hjDTShktANS4&libraries=places&callback=initMap&v=weekly"
-			async
-		></script>
 
 	
 		
