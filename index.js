@@ -133,6 +133,33 @@ function initMap(markers) {
     calculateAndDisplayRoute(directionsService, directionsRenderer);
   };
 
+
+
+
+
+  var axios = require('axios');
+
+  var config = {
+    method: 'get',
+    //url: 'https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&key=YOUR_API_KEY',
+    url: 'https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&key=AIzaSyBu01p6HUScvtSVttrouq7hjDTShktANS4&libraries=places&callback=initMap&v=weekly'
+    //headers: { }
+  };
+
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+
+
+
+
+
+
   document.getElementById("risi").addEventListener("change", onChangeHandler);
 
 }

@@ -9,6 +9,10 @@
 </head>
 <body>
 
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand">Midway</a>
+	</nav>
+
 	<div class="loginOkno col-4 shadow p-3 mb-5 bg-white rounded">
 		<form method="post" action="login.php">
 			<?php include('errors.php'); ?>

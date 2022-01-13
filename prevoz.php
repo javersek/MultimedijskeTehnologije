@@ -72,24 +72,24 @@
 					$password = "";
 
 					try {
-					$conn = new PDO("mysql:host=$servername;dbname=mydb", $username, $password);
-					// set the PDO error mode to exception
-					$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+						$conn = new PDO("mysql:host=$servername;dbname=mydb", $username, $password);
+						// set the PDO error mode to exception
+						$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-					$stmt = $conn->prepare("SELECT uporabnikid FROM uporabnik WHERE username='$ime'");
-					$stmt->execute();
+						$stmt = $conn->prepare("SELECT uporabnikid FROM uporabnik WHERE username='$ime'");
+						$stmt->execute();
 
-					// set the resulting array to associative
-					$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+						// set the resulting array to associative
+						$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-					$idponudnik=$result;
-					
+						$idponudnik=$result;
+						
 
-					$sql = "INSERT INTO prevozi(barva, znamka, iz, v, prostor, cas, uporabnik_uporabnikid) VALUES ('$barva','$znamka','$iz', '$v', $prostor, '$cas', $idponudnik)";
+						$sql = "INSERT INTO prevozi(barva, znamka, iz, v, prostor, cas, uporabnik_uporabnikid) VALUES ('$barva','$znamka','$iz', '$v', $prostor, '$cas', $idponudnik)";
 
-					$conn->exec($sql);
-					header("Refresh:0");
+						$conn->exec($sql);
+						header("Refresh:0");
 
 					}catch(PDOException $e) {
 					echo "Connection failed: " . $e->getMessage();

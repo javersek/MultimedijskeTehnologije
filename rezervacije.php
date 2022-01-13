@@ -64,7 +64,22 @@
 				$username = "root";
 				$password = "";
 
+				try {
+					$conn = new PDO("mysql:host=$servername;dbname=mydb", $username, $password);
+					// set the PDO error mode to exception
+					$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+                    $ime=$_SESSION['username'];
+                    $sql = "SELECT uporabnikid FROM uporabnik WHERE username='$ime'";
+                    $stmt = $conn->prepare($sql);
+				    $stmt->execute();
+                    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    $uporabnikIzpis=$result;
+
+					
+				} catch(PDOException $e) {
+					echo $sql . "<br>" . $e->getMessage();
+				}
 
 
 

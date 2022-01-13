@@ -178,6 +178,24 @@
 					// set the PDO error mode to exception
 					$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+                    $ime=$_SESSION['username'];
+                    $sql = "SELECT uporabnikid FROM uporabnik WHERE username='$ime'";
+                    $stmt = $conn->prepare($sql);
+				    $stmt->execute();
+                    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    $uporabnikIzpis=$result;
+
+					
+				} catch(PDOException $e) {
+					echo $sql . "<br>" . $e->getMessage();
+				}
+
+
+				try {
+					$conn = new PDO("mysql:host=$servername;dbname=mydb", $username, $password);
+					// set the PDO error mode to exception
+					$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 
 					if(isset($_POST['prostorbrisanje'], $_POST['idbrisanje'])){
 						
@@ -201,6 +219,62 @@
 							$stmt = $conn->prepare($sql);
 							$stmt->execute();
 						}
+
+						///////////////////
+
+
+
+						$sql = "SELECT znamka, barva, iz, v, cas, uporabnik_uporabnikid FROM prevozi WHERE uporabnik_uporabnikid=$uporabnikIzpis LIMIT 1";
+
+						$stmt = $conn->query($sql);
+						//$stmt->execute();
+
+						$result = $stmt->fetch();
+
+						/*echo $result[0];
+						echo $result[1];
+						echo $result[2];
+						echo $result[3];
+						echo $result[4];
+						echo $result[5];*/
+
+						$sql = "INSERT INTO rezervacije(znamka, barva, iz, v, cas, uporabnik_uporabnikid) VALUES ('$result[0]','$result[1]','$result[2]', '$result[3]', '$result[4]', '$result[5]')";
+
+						$conn->exec($sql);
+
+						/*foreach($stmt->fetchAll() as $k=>$v) {
+							
+
+							$vv = implode(";",$v);
+							$vv = explode(";",$vv);
+
+
+							$idprevoz=$vv[0];
+							$znamka=$vv[1];
+							$barva=$vv[2];
+							$iz=$vv[3];
+							$kam=$vv[4];
+							$cas=$vv[5];
+							$uporabnik_uporabnikid=$vv[6];
+
+							echo "delaaaaaaaaaaaaaaaaaaaa";
+
+							$sql = "INSERT INTO rezervacije(znamka, barva, iz, v, cas, uporabnik_uporabnikid) VALUES ('$znamka','$barva','$iz', '$kam', '$cas', $uporabnik_uporabnikid)";
+
+							$conn->exec($sql);
+							
+
+						}*/
+
+						//$znamka=$seznam[];
+
+
+						//////////////////
+
+
+						//$sql = "INSERT INTO rezervacije(znamka, barva, iz, v, cas, uporabnik_uporabnikid) VALUES ('$znamka','$barva','$iz', '$v', '$cas', $idponudnik)";
+
+						//$conn->exec($sql);
 
 
 					}

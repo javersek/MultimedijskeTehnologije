@@ -112,7 +112,7 @@
 
 
 
-				$sql = "SELECT idprevozi, znamka, iz, v, prostor, cas, uporabnik_uporabnikid FROM prevozi WHERE prostor>0 AND uporabnik_uporabnikid=$uporabnikIzpis";
+				$sql = "SELECT idprevozi, znamka, iz, v, prostor, cas, uporabnik_uporabnikid FROM prevozi WHERE uporabnik_uporabnikid=$uporabnikIzpis";
 
 				$stmt = $conn->prepare($sql);
 				$stmt->execute();
