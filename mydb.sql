@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gostitelj: 127.0.0.1
--- Čas nastanka: 11. jan 2022 ob 19.21
+-- Čas nastanka: 25. jan 2022 ob 15.07
 -- Različica strežnika: 10.4.21-MariaDB
 -- Različica PHP: 8.0.12
 
@@ -43,9 +43,10 @@ CREATE TABLE `prevozi` (
 --
 
 INSERT INTO `prevozi` (`idprevozi`, `znamka`, `barva`, `iz`, `v`, `prostor`, `cas`, `uporabnik_uporabnikid`) VALUES
-(4, 'Chevrolet', 'Bela', 'FRI', 'Bežigrad', 4, '2021-12-04 16:04:00', 1),
-(6, 'Audi', 'Črna', 'LJ-Center', 'Stožice', 2, '2022-01-20 21:35:00', 1),
-(7, 'Renault', 'Bela', 'Bežigrad', 'Vič', 3, '2021-11-18 14:34:00', 1);
+(6, 'Audi', 'Črna', 'LJ-Center', 'Stožice', 1, '2022-01-20 21:35:00', 1),
+(7, 'Renault', 'Bela', 'Bežigrad', 'Vič', 2, '2021-11-18 14:34:00', 1),
+(8, 'BMW', 'Siva', 'Mercator, Dunajska cesta, Ljubljana, Slovenija', 'BTC City, Hala A, Ljubljana, Slovenija', 1, '2022-01-20 19:54:00', 1),
+(9, 'test', 'test', 'Testenova ulica, Mengeš, Slovenija', 'Testenine in Slaščice Safet Amza s.p., Bohinjčeva ulica, Ljubljana, Slovenija', 121, '2022-01-29 20:11:00', 1);
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,8 @@ CREATE TABLE `rezervacije` (
 --
 
 INSERT INTO `rezervacije` (`idrezervacije`, `znamka`, `barva`, `iz`, `v`, `cas`, `uporabnik_uporabnikid`) VALUES
-(1, 'Toyota', 'Modra', 'Rožna dolina', 'FRI', '2022-01-17 12:40:34', 1);
+(1, 'Toyota', 'Modra', 'Rožna dolina', 'FRI', '2022-01-17 12:40:34', 1),
+(2, 'Chevrolet', 'Bela', 'FRI', 'Bežigrad', '2021-12-04 16:04:00', 1);
 
 -- --------------------------------------------------------
 
@@ -88,7 +90,8 @@ CREATE TABLE `uporabnik` (
 --
 
 INSERT INTO `uporabnik` (`uporabnikid`, `username`, `email`, `password`) VALUES
-(1, 'zan', 'zan.korenkern@gmail.com', '202cb962ac59075b964b07152d234b70');
+(1, 'zan', 'zan.korenkern@gmail.com', '202cb962ac59075b964b07152d234b70'),
+(2, 'test', 'test@test.com', '202cb962ac59075b964b07152d234b70');
 
 --
 -- Indeksi zavrženih tabel
@@ -122,19 +125,19 @@ ALTER TABLE `uporabnik`
 -- AUTO_INCREMENT tabele `prevozi`
 --
 ALTER TABLE `prevozi`
-  MODIFY `idprevozi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idprevozi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT tabele `rezervacije`
 --
 ALTER TABLE `rezervacije`
-  MODIFY `idrezervacije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idrezervacije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT tabele `uporabnik`
 --
 ALTER TABLE `uporabnik`
-  MODIFY `uporabnikid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `uporabnikid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Omejitve tabel za povzetek stanja
